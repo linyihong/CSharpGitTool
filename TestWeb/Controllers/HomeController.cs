@@ -9,7 +9,10 @@ namespace TestWeb.Controllers
         {
             var gitHelper = new GitHelper();
             var projectNames = gitHelper.ProjectNames;
+            var authorCommits = gitHelper.GetCommits(projectNames[0], "develop");
             ViewData["ProjectNames"] = projectNames;
+            ViewData["Commits"] = authorCommits;
+
 
             return View();
         }

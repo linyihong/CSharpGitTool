@@ -62,7 +62,7 @@ namespace GitTools
             return repo;
         }
 
-        public ICommitLog GetCommits(string projectName, string branchName)
+        public ICommitLog GetCommitLog(string projectName, string branchName)
         {
             var repo = GetRepository(projectName);
             var branch = repo.Branches.FirstOrDefault(b => b.CanonicalName.ToLower().Contains(branchName));
@@ -70,13 +70,42 @@ namespace GitTools
             return branch.Commits;
         }
 
-        public ICommitLog GetCommits(string projectName)
+        public ICommitLog GetCommitLog(string projectName)
         {
             var repo = GetRepository(projectName);
 
             return repo.Commits;
         }
 
+        public List<Commit> GetAllCommits(string projectName)
+        {
+            return GetRepository(projectName).Branches.SelectMany(b => b.Commits.ToList()).ToList();
+        }
+
+        public List<Commit> GetCommits(string projectName, string branchName)
+        {
+            return GetCommitLog(projectName, branchName).ToList();
+        }
+
+        public List<Commit> GetCommits(string projectName)
+        {
+            return GetCommitLog(projectName).ToList();
+        }
+
+        public List<Commit> GetCommitsByAuthor(string projectName, string authorName)
+        {
+            return GetCommits(projectName)
+                .Where(c => c.Author.Name == authorName)
+                .OrderByDescending(c => c.Committer.When).ToList();
+        }
+
+        public List<Commit> GetCommitsByAuthor(string projectName, string branchName, string authorName)
+        {
+            return GetCommits(projectName, branchName)
+                .Where(c => c.Author.Name == authorName)
+                .OrderByDescending(c => c.Committer.When)
+                .ToList();
+        }
 
         private void GetProjects()
         {

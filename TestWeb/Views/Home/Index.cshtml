@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     var projectNames = ViewData["ProjectNames"] as List<string>;
+    var commits = ViewData["Commits"] as List<Commit>;
 }
 
 <ul>
@@ -10,3 +11,18 @@
     }
 </ul>
 
+<div class="row">
+    @foreach (var commit in commits)
+    {
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-title">
+                    @commit.Author-@commit.Committer.When
+                </div>
+                <div class="panel-body">
+                    @commit.Message
+                </div>
+            </div>
+        </div>
+    }
+</div>
