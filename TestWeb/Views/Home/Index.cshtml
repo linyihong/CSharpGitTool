@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var projectNames = ViewData["ProjectNames"] as List<string>;
+}
+
+<ul>
+    @foreach (var name in projectNames)
+    {
+        <li><a href="@Url.Action("ProjectLogs",new { ProjectName = name })">@name</a></li>
+    }
+</ul>
+
