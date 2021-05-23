@@ -1,0 +1,42 @@
+﻿@inject IGitTool gitTool
+@{
+    ViewData["Title"] = "Home Page";
+    var projectNames = gitTool.ProjectNames;
+    var repos = gitTool.GetAllCommits();
+}
+
+<ul>
+    @foreach (var name in projectNames)
+    {
+        <li><a href="@Url.Action("ProjectLogs",new { ProjectName = name })">@name</a></li>
+    }
+</ul>
+
+<div class="row">
+    @foreach (var repo in repos)
+    {
+        <h1>@repo.Key</h1>
+        var commits = repos[repo.Key];
+        @for (int i = 0; i < Math.Ceiling(((decimal)(commits.Count() / 3))); i++)
+        {
+            <div class="col-md-12">
+                @for (int j = 0; j < 3; j++)
+                {
+                    var index = i * 3 + j;
+                    var commit = commits.ElementAt(index);
+                    <div class="col-md-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-title">
+                                @commit.Author-@commit.Committer.When
+                            </div>
+                            <div class="panel-body">
+                                @commit.Message
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+
+</div>
