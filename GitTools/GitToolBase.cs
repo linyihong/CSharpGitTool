@@ -8,7 +8,7 @@ namespace GitTools
 {
     public class GitToolBase : IGitTool, IDisposable
     {
-        public IEnumerable<string> ProjectName => projects.Select(p => p.Key);
+        public IEnumerable<string> ProjectNames => projects.Select(p => p.Key);
 
         private readonly IDictionary<string, string> projects;
         private readonly IDictionary<string, Repository> repos = new Dictionary<string, Repository>();

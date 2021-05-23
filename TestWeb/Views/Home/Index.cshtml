@@ -1,7 +1,7 @@
 ﻿@inject IGitTool gitTool
 @{
     ViewData["Title"] = "Home Page";
-    var projectNames = gitTool.ProjectName;
+    var projectNames = gitTool.ProjectNames;
     var repos = gitTool.GetAllCommits();
 }
 
