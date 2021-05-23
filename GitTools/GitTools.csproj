@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Company />
+    <Authors>LarryLin</Authors>
   </PropertyGroup>
 
   <ItemGroup>
